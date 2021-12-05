@@ -6,7 +6,7 @@ from accounts.serializers import RegisterSerializer
 from rest_framework.response import Response
 
 # Create your views here.
-
+# TODO: Handle user log in.
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
