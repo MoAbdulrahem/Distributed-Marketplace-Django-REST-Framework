@@ -1,0 +1,53 @@
+[33mcommit 1f3053920a9982a3bed2f011af4bc1d4895a95da[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: MoAbdulRahem <1601227@eng.asu.edu.eg>
+Date:   Sun Dec 5 21:59:55 2021 +0200
+
+    added to do list to the account api
+
+[33mcommit 55be2b685be4588b086b8e5d762b3fbdf61f08dc[m
+Author: MoAbdulRahem <1601227@eng.asu.edu.eg>
+Date:   Sun Dec 5 21:57:53 2021 +0200
+
+    finished the products api
+
+[33mcommit d4482b0ffd0643b61b4f49debbe27081b3cb4dd8[m
+Author: MoAbdulRahem <1601227@eng.asu.edu.eg>
+Date:   Sun Dec 5 20:13:08 2021 +0200
+
+    created products app
+
+[33mcommit 4f15227775be350f4f7cb4309638fa1494986065[m
+Author: Mohamed AbdulRahem <mohamed.nafea1998@gmail.com>
+Date:   Sun Dec 5 20:08:21 2021 +0200
+
+    Categories API
+
+[33mcommit f67cd6b12bbe8577b137bbc310f08d864f4f5fe6[m
+Author: Mohamed AbdulRahem <mohamed.nafea1998@gmail.com>
+Date:   Sun Dec 5 19:31:41 2021 +0200
+
+    laid the groundwork for the accounts api
+
+[33mcommit 24e2bd760160c136032874c1b3ac709db7d1edaf[m
+Author: Mohamed AbdulRahem <mohamed.nafea1998@gmail.com>
+Date:   Sun Dec 5 14:16:09 2021 +0200
+
+    Initial Commit
+
+[33mcommit 5802d99c36a9c1972b4f71980760476945e977dd[m
+Author: Mohamed AbdulRahem <mohamed.nafea1998@gmail.com>
+Date:   Sun Dec 5 14:15:32 2021 +0200
+
+    Initial Commit
+
+[33mcommit e8ae724c47ee27dfe6ef9a98589479a5e067c569[m
+Author: Mo AbdulRahem <73915797+MoAbdulrahem@users.noreply.github.com>
+Date:   Sun Dec 5 14:11:56 2021 +0200
+
+    Update README.md
+
+[33mcommit baccbb8a8a19d32c878fedebf22df77e2f5b5ee1[m
+Author: Mo AbdulRahem <73915797+MoAbdulrahem@users.noreply.github.com>
+Date:   Sun Dec 5 14:10:51 2021 +0200
+
+    Initial commit
