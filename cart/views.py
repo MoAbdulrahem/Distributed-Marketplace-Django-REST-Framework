@@ -22,14 +22,15 @@ class CartItemViewSet(viewsets.ModelViewSet):
   serializer_class = CartItemSerializer
   @action(detail=False, methods=['post'])
   def itemInTheCart(self, request):
-      items = CartItem.objects.filter(quantity = int(request.data['quantity']))
-     
+      items = CartItem.objects.filter(cart =request.data['cart'])
+
+
       try:
-          serializer = CartItemSerializer(items)
+          serializer = CartItemSerializer(items , many=True)
           return Response(serializer.data)
       except:
           return Response(status.Http404)
-      return Response({'status':'cannot find'})
+
 
 
 
