@@ -21,12 +21,13 @@ class Product(models.Model):
   available = models.BooleanField(default=False)
   rating = models.FloatField(default=0)
   price = models.IntegerField()
+  image = models.ImageField(null=True, blank=True ,default='empty.jpg')
 
   # Relationships
   seller = models.ForeignKey('accounts.User', related_name='products', on_delete=models.CASCADE)
   category = models.ForeignKey('categories.Category', related_name='categories', on_delete=models.CASCADE)
 
-  REQUIRED_FIELDS = ['name', 'price', 'seller', 'category']
+  REQUIRED_FIELDS = ['name', 'price', 'seller', 'category','image']
 
   def __str__(self):
     return self.name
