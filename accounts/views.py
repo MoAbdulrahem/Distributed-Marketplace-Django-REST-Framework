@@ -14,7 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = RegisterSerializer
 
     @action(detail=False, methods=['post'])
-    def loginCheak(self, request):
+    def loginCheck(self, request):
         users = list(self.get_queryset())
         for user in users:
         
