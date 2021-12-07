@@ -22,6 +22,7 @@ class Product(models.Model):
   rating = models.FloatField(default=0)
   price = models.IntegerField()
   image = models.ImageField(null=True, blank=True ,default='empty.jpg')
+  amount = models.PositiveIntegerField(default=0)
 
   # Relationships
   seller = models.ForeignKey('accounts.User', related_name='products', on_delete=models.CASCADE)
