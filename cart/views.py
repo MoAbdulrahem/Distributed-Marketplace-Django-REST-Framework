@@ -56,10 +56,10 @@ class CartItemViewSet(viewsets.ModelViewSet):
     serializer=RegisterSerializer(request.user)
 
     if request.user.balance >= total_cost:
-      Record.objects.create(report="Transaction Complete, " +request.user.email + "'s Balance was deducted by: "+str(total_cost))
       for key in sold_items:
         Record.objects.create(report=request.user.email + " has purchased "+ key+ " x"+ str(sold_items[key]))
-      return_dict = {'status':'Transaction Complete, Balance was deducted by: '+str(total_cost)}
+      return_dict = {'status':"Transaction Complete, " +request.user.email + "'s Balance was deducted by: "+str(total_cost)}
+      Record.objects.create(report=return_dict['status'])
       request.user.balance -= total_cost
       request.user.save()
       print("balance was deducted by ", total_cost)
