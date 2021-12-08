@@ -9,7 +9,7 @@ from rest_framework import status
 from accounts.serializers import RegisterSerializer
 from accounts.models import User
 from products.models import Product
-
+from records.models import Record
 # from rest_framework.response import Response
 
 # Create your views here.
@@ -44,16 +44,21 @@ class CartItemViewSet(viewsets.ModelViewSet):
     # TESTING: print the items instide the cart.
     total_cost = 0
     owners = {} #keep track of what each owner balance would be after their items are sold
+    sold_items = {} #keep track of items to record them in case of a successful transaction
     for item in items: #each item is a CartItem instance, so it has the product and its amount but NOT its price
       product_instance = Product.objects.get(pk=item.product.id)
       print(item.product, " Quantity: ", item.quantity, " ID: ", item.id, " price: ", product_instance.price)
       total_cost += (product_instance.price*item.quantity)
+      sold_items[product_instance.name] = item.quantity
       owners[product_instance.seller]= product_instance.price*item.quantity
       print("total_cost: ", total_cost)
 
     serializer=RegisterSerializer(request.user)
 
     if request.user.balance >= total_cost:
+      Record.objects.create(report="Transaction Complete, " +request.user.email + "'s Balance was deducted by: "+str(total_cost))
+      for key in sold_items:
+        Record.objects.create(report=request.user.email + " has purchased "+ key+ " x"+ str(sold_items[key]))
       return_dict = {'status':'Transaction Complete, Balance was deducted by: '+str(total_cost)}
       request.user.balance -= total_cost
       request.user.save()
@@ -63,6 +68,7 @@ class CartItemViewSet(viewsets.ModelViewSet):
         owner.balance += owners[key]
         owner.save()
         return_dict[owner.email] = 'Balance increased by: '+str(owners[key])
+        Record.objects.create(report=owner.email+"'s Balance increased by: "+str(owners[key]))
         print (key, "balance increased by:" , owners[key])
 
       return Response(return_dict)
