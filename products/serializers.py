@@ -8,8 +8,20 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+  reviews = serializers.PrimaryKeyRelatedField(read_only=True,many=True)
   class Meta:
     model = Product
-    fields = ['name', 'short_description', 'long_description', 'available', 'amount', 'rating', 'price', 'seller', 'category','image']
+    fields = ['name',
+      'short_description',
+      'long_description',
+      'available',
+      'amount',
+      'rating',
+      'price',
+      'seller',
+      'category',
+      'image',
+      'reviews',
+      ]
     # depth = 1
 

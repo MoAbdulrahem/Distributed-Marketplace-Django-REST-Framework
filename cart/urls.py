@@ -5,7 +5,7 @@ from . import views
 # Creating a router and registering our Viewset with it
 router = SimpleRouter()
 router.register(r'cart', views.CartViewSet)
-router.register(r'cartproducts', views.CartItemViewSet)
+router.register(r'cartitems', views.CartItemViewSet)
 
 urlpatterns = [
   path('', include(router.urls)),
