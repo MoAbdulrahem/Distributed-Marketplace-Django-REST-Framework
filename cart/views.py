@@ -33,7 +33,6 @@ class CartItemViewSet(viewsets.ModelViewSet):
           return Response({'status':'failed'})
       return Response({'status':'cannot find'})
 
-
   @action(detail=False, methods=['post'])
   def checkout(self, request):
     
@@ -51,13 +50,6 @@ class CartItemViewSet(viewsets.ModelViewSet):
       total_cost += (product_instance.price*item.quantity)
       owners[product_instance.seller]= product_instance.price*item.quantity
       print("total_cost: ", total_cost)
-    # product_set = Product.objects.all()
-    # products = product_set.cart_product.all()
-    # for product in products:
-    #   print("Product is ", product )
-
-    #Getting the product price
-    # products = 
 
     serializer=RegisterSerializer(request.user)
 
