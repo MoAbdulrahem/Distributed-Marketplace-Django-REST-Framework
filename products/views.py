@@ -21,11 +21,9 @@ class ProductViewSet(viewsets.ModelViewSet):
   @action(detail=False, methods=['post'])
   @permission_classes((permissions.IsAuthenticated, ))
   def add_product(self, request):
-    print('+++++++++')
 
     serializer = ProductSerializer(data=request.data)
     if serializer.is_valid():
-      print('=========')
       print(request.name+" x"+request.amount+ ", has been added by "+request.seller.email)
       Record.objects.create(report=request.name+" x"+request.amount+ ", has been added by "+request.seller.email)
       return Response(serializer.data)
