@@ -14,10 +14,12 @@ class UserManager(BaseUserManager):
       raise ValueError("Email cannot be None")
     
     user = self.model(username=username, email=self.normalize_email(email))
-    if password==password2:
+    if password and password2 and password!=password2:
       raise ValueError("Passwords must match.")
     user.set_password(password)
-    user.save()
+
+    # user.set_password(self.cleaned_data['password'])
+    user.save(using=self._db)
     return user
 
   def create_superuser(self, username, email, password=None,password2=None):
@@ -25,7 +27,7 @@ class UserManager(BaseUserManager):
     user = self.create_user(username, email, password)
     user.is_superuser = True
     user.is_staff = True
-    user.save()
+    user.save(using=self._db)
     return user
 
 

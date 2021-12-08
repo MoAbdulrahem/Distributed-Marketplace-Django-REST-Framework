@@ -9,6 +9,8 @@ class RegisterSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = ['username', 'email', 'password', 'balance']
+    write_only_fields = ('password')
+    read_only_fields = ('is_staff', 'is_superuser')
 
   def validate(self, attrs):
     '''
@@ -25,8 +27,18 @@ class RegisterSerializer(serializers.ModelSerializer):
     
     return attrs
 
+    # def create(self, validated_data):
+    #   '''
+    #   Responsible for creating the actual users
+    #   '''
+    #   return User.objects.create_user(**validated_data)
+
     def create(self, validated_data):
       '''
-      Responsible for creating the actual users
+      test version
       '''
-      return User.objects.create_user(**validated_data)
+      password = validated_data.pop('password')
+      user = super().create(validated_data)
+      user.set_password(password)
+      user.save()
+      return user
