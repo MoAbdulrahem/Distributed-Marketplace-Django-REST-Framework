@@ -29,3 +29,22 @@ class ProductViewSet(viewsets.ModelViewSet):
       return Response(serializer.data)
     return Response({'status':'Failed'})
 
+  @action(detail=False, methods=['post'])
+  def showProductSeller(self, request):
+    items = Product.objects.filter(seller=request.data['seller'])
+
+    try:
+      serializer = ProductSerializer(items, many=True)
+      return Response(serializer.data)
+    except:
+      return Response(status.Http404)
+
+  @action(detail=False, methods=['post'])
+  def showProductCategory(self, request):
+    items = Product.objects.filter(category=request.data['category'])
+
+    try:
+      serializer = ProductSerializer(items, many=True)
+      return Response(serializer.data)
+    except:
+      return Response(status.Http404)

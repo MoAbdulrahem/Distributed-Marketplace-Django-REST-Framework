@@ -5,12 +5,14 @@ from accounts.models import User
 class RegisterSerializer(serializers.ModelSerializer):
   # products = serializers.PrimaryKeyRelatedField(many=True, queryset = Products.objects.all())
   password = serializers.CharField(max_length=64, min_length=6, write_only=True)
-
+  user_cart = serializers.PrimaryKeyRelatedField(read_only=True)
+  products = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
   class Meta:
     model = User
-    fields = ['username', 'email', 'password', 'balance']
+    fields = ['username', 'email', 'password', 'balance', 'products', 'user_cart']
     write_only_fields = ('password')
     read_only_fields = ('is_staff', 'is_superuser')
+    # depth = 2
 
   def validate(self, attrs):
     '''
