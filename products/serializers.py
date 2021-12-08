@@ -8,7 +8,8 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-  reviews = serializers.PrimaryKeyRelatedField(read_only=True,many=True)
+  # reviews = serializers.PrimaryKeyRelatedField(read_only=True,many=True)
+  reviews = serializers.SlugRelatedField(read_only=True,many=True, slug_field='title')
   class Meta:
     model = Product
     fields = ['name',
