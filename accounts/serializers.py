@@ -45,3 +45,4 @@ class RegisterSerializer(serializers.ModelSerializer):
       # Cart.objects.create(user=self.user)
       user.save()
       return user
+    

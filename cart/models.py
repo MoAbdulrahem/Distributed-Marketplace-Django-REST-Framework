@@ -1,9 +1,9 @@
 from django.db import models
-from accounts.models import User 
+# from accounts.models import User 
 # Create your models here.
 
 class Cart(models.Model):
-  user = models.OneToOneField( User, related_name="user_cart", on_delete=models.CASCADE)
+  user = models.OneToOneField( 'accounts.User', related_name="user_cart", on_delete=models.CASCADE)
   total = models.DecimalField( max_digits=10, decimal_places=2, default=0, blank=True, null=True)
   
   def __str__(self):
