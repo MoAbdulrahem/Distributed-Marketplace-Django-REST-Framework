@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+# from cart.models import cart
 # Create your models here.
 
 # Implementing a custom user model
@@ -20,6 +20,7 @@ class UserManager(BaseUserManager):
 
     # user.set_password(self.cleaned_data['password'])
     user.save(using=self._db)
+    # Cart.objects.create(user=self.user)
     return user
 
   def create_superuser(self, username, email, password=None,password2=None):

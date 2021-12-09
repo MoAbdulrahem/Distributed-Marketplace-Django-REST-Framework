@@ -42,5 +42,6 @@ class RegisterSerializer(serializers.ModelSerializer):
       password = validated_data.pop('password')
       user = super().create(validated_data)
       user.set_password(password)
+      # Cart.objects.create(user=self.user)
       user.save()
       return user

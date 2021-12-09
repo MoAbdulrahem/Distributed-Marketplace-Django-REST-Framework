@@ -79,10 +79,28 @@ WSGI_APPLICATION = 'Distributed_Marketplace.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'Distributed-Marketplace',
+        'ENFORCE_SCHEMA':False,
+        # 'CLIENT': {
+        #    'host': 'localhost:27017',
+        # }
+    },
+    'db2': {
+        'ENGINE': 'djongo',
+        'NAME': 'test_data',
+        # 'CLIENT': {
+        #    'host': 'localhost:27017',
+        # }
     }
 }
 
