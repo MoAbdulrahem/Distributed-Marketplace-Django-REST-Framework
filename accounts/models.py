@@ -28,8 +28,8 @@ class UserManager(BaseUserManager):
     #   user.save(using='default')
 
     # user.set_password(self.cleaned_data['password'])
-    user.save.using('db2')
-    Cart.objects.create(user=self)
+    user.save(using=self._db)
+    # Cart.objects.create(user=self)
     return user
 
   def create_superuser(self, username, email, password=None,password2=None):

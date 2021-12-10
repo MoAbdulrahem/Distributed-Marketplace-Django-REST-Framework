@@ -91,9 +91,9 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'Distributed-Marketplace',
         'ENFORCE_SCHEMA':False,
-        # 'CLIENT': {
-        #    'host': 'localhost:27017',
-        # }
+        'CLIENT': {
+           'host': 'localhost:26061',
+        }
     },
     'db2': {
         'ENGINE': 'djongo',
