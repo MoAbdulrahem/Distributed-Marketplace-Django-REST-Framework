@@ -9,7 +9,7 @@ from cart.models import Cart
 # Implementing a custom user model
 class UserManager(BaseUserManager):
   
-  def create_user(self, username, email, password=None,password2=None):
+  def create_user(self, username, email, password=None):
 
     if username is None:
       raise ValueError("Username cannot be None")
@@ -17,8 +17,8 @@ class UserManager(BaseUserManager):
       raise ValueError("Email cannot be None")
     
     user = self.model(username=username, email=self.normalize_email(email))
-    if password and password2 and password!=password2:
-      raise ValueError("Passwords must match.")
+    # if password and password2 and password!=password2:
+    #   raise ValueError("Passwords must match.")
     user.set_password(password)
 
     # if user.username[0]=='m':
@@ -44,14 +44,13 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
   username = models.CharField(max_length = 255, unique=True, db_index=True)
   email = models.EmailField(verbose_name='email address', max_length=255, unique=True, db_index=True)
-  password2 = models.CharField(max_length=64)
   is_superuser = models.BooleanField(default=False)
   is_staff = models.BooleanField(default=False)
   group = None
   balance = models.PositiveIntegerField(default=0)
 
   USERNAME_FIELD = 'email'
-  REQUIRED_FIELDS = ['password', 'username', 'password2']
+  REQUIRED_FIELDS = ['password', 'username']
 
   objects = UserManager() # Telling django how to manage objects of this type "User", by delegating that to the UserManager() class
 

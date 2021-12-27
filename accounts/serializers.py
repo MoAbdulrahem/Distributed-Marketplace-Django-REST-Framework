@@ -35,14 +35,14 @@ class RegisterSerializer(serializers.ModelSerializer):
     #   '''
     #   return User.objects.create_user(**validated_data)
 
-    def create(self, validated_data):
-      '''
-      test version
-      '''
-      password = validated_data.pop('password')
-      user = super().create(validated_data)
-      user.set_password(password)
-      # Cart.objects.create(user=self.user)
-      user.save()
-      return user
+  def create(self, validated_data):
+    '''
+    test version
+    '''
+    password = validated_data.pop('password')
+    user = super().create(validated_data)
+    user.set_password(password)
+    # Cart.objects.create(user=self.user)
+    user.save()
+    return user
     

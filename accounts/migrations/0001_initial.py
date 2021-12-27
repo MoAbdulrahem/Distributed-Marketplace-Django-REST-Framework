@@ -20,7 +20,6 @@ class Migration(migrations.Migration):
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
                 ('username', models.CharField(db_index=True, max_length=255, unique=True)),
                 ('email', models.EmailField(db_index=True, max_length=255, unique=True, verbose_name='email address')),
-                ('password2', models.CharField(max_length=64)),
                 ('is_superuser', models.BooleanField(default=False)),
                 ('is_staff', models.BooleanField(default=False)),
                 ('balance', models.PositiveIntegerField(default=0)),
