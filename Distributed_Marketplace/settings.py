@@ -88,21 +88,23 @@ WSGI_APPLICATION = 'Distributed_Marketplace.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'Distributed-Marketplace',
-        'ENFORCE_SCHEMA':False,
-        'CLIENT': {
-           'host': 'localhost:26061',
-        }
-    },
-    'db2': {
-        'ENGINE': 'djongo',
-        'NAME': 'test_data',
-        # 'CLIENT': {
-        #    'host': 'localhost:27017',
-        # }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+## This is the actual distributed database, use it if you have MongoDb installed.
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'Distributed-Marketplace',
+#         'ENFORCE_SCHEMA':False,
+#         'CLIENT': {
+#            'host': 'localhost:26061',
+#         }
+#     },
+# }
+
 
 
 # Password validation
