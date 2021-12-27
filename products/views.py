@@ -24,7 +24,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     serializer = ProductSerializer(data=request.data)
     if serializer.is_valid():
-      print(request.name+" x"+request.amount+ ", has been added by "+request.seller.email)
+      print(serializer.data['name']+" x"+serializer.data['amount']+ ", has been added by "+request.seller.email)
       Record.objects.create(report=request.name+" x"+request.amount+ ", has been added by "+request.seller.email)
       return Response(serializer.data)
     return Response({'status':'Failed'})
