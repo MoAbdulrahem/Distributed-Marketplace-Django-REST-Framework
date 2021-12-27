@@ -93,6 +93,8 @@ class CartItemViewSet(viewsets.ModelViewSet):
         return_dict[owner.email] = 'Balance increased by: '+str(owners[key])
         Record.objects.create(report=owner.email+"'s Balance increased by: "+str(owners[key]))
         print (key, "balance increased by:" , owners[key])
+      
+      items.delete()
 
       return Response(return_dict)
 
