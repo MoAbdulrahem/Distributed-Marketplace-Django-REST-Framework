@@ -8,7 +8,7 @@ from rest_framework import status
 # from rest_framework.status import Http404
 from accounts.serializers import RegisterSerializer
 from accounts.models import User
-from products.models import Product
+from products.models import Product, PurchasedProducts, SoldProducts
 from records.models import Record
 # from rest_framework.response import Response
 
@@ -41,23 +41,46 @@ class CartItemViewSet(viewsets.ModelViewSet):
     # items = CartItem.objects.filter(cart = cart_instance)
     items = cart_instance.cart_item.all() # get all items associated with that car, by using reverse relation
 
-    # TESTING: print the items instide the cart.
+    # TESTING: print the items inside the cart.
     total_cost = 0
     owners = {} #keep track of what each owner balance would be after their items are sold
     sold_items = {} #keep track of items to record them in case of a successful transaction
-    for item in items: #each item is a CartItem instance, so it has the product and its amount but NOT its price
-      product_instance = Product.objects.get(pk=item.product.id)
-      print(item.product, " Quantity: ", item.quantity, " ID: ", item.id, " price: ", product_instance.price)
-      total_cost += (product_instance.price*item.quantity)
-      sold_items[product_instance.name] = item.quantity
-      owners[product_instance.seller]= product_instance.price*item.quantity
-      print("total_cost: ", total_cost)
-
-    serializer=RegisterSerializer(request.user)
 
     if request.user.balance >= total_cost:
+
+      for item in items: #each item is a CartItem instance, so it has the product and its amount but NOT its price
+        product_instance = Product.objects.get(pk=item.product.id)
+        print(item.product, " Quantity: ", item.quantity, " ID: ", item.id, " price: ", product_instance.price)
+        total_cost += (product_instance.price*item.quantity)
+        sold_items[product_instance.name] = item.quantity
+        owners[product_instance.seller]= product_instance.price*item.quantity
+        print("total_cost: ", total_cost)
+
+        #adding the items to the user's purchased items
+        PurchasedProducts.objects.create(
+          name=product_instance, 
+          price=product_instance.price,
+          image=product_instance.image,
+          quantity=item.quantity,
+          user = request.user
+        )
+
+        #adding the items to the user's purchased items
+        SoldProducts.objects.create(
+          name=product_instance, 
+          price=product_instance.price,
+          image=product_instance.image,
+          quantity=item.quantity,
+          user = product_instance.seller
+        )
+
+      serializer=RegisterSerializer(request.user)
+
+    
       for key in sold_items:
         Record.objects.create(report=request.user.email + " has purchased "+ key+ " x"+ str(sold_items[key]))
+        
+
       return_dict = {'status':"Transaction Complete, " +request.user.email + "'s Balance was deducted by: "+str(total_cost)}
       Record.objects.create(report=return_dict['status'])
       request.user.balance -= total_cost

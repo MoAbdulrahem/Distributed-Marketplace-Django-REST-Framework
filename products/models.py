@@ -32,3 +32,27 @@ class Product(models.Model):
 
   def __str__(self):
     return self.name
+
+class SoldProducts(models.Model):
+  name = models.CharField(max_length=200)
+  price = models.IntegerField()
+  image = models.ImageField(null=True, blank=True ,default='empty.jpg')
+  quantity = models.PositiveIntegerField(default=0)
+
+  # Relationships
+  user = models.ForeignKey('accounts.User', related_name='sold_products', on_delete=models.CASCADE)
+
+  def __str__(self):
+    return self.name
+
+class PurchasedProducts(models.Model):
+  name = models.CharField(max_length=200)
+  price = models.IntegerField()
+  image = models.ImageField(null=True, blank=True ,default='empty.jpg')
+  quantity = models.PositiveIntegerField(default=0)
+
+  # Relationships
+  user = models.ForeignKey('accounts.User', related_name='purchased_products', on_delete=models.CASCADE)
+
+  def __str__(self):
+    return self.name
