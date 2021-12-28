@@ -12,7 +12,9 @@ class ProductSerializer(serializers.ModelSerializer):
   reviews = serializers.SlugRelatedField(read_only=True,many=True, slug_field='title')
   class Meta:
     model = Product
-    fields = ['name',
+    fields = [
+      'id',
+      'name',
       'short_description',
       'long_description',
       'available',

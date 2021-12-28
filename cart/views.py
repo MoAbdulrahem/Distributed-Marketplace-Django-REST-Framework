@@ -35,8 +35,10 @@ class CartItemViewSet(viewsets.ModelViewSet):
 
   @action(detail=False, methods=['post'])
   def checkout(self, request):
-    
-    cart_instance = Cart.objects.get(user=request.user) # Get the cart for the user that issued the request
+
+    user_instance = User.objects.get(email=request.data["email"])
+    cart_instance = Cart.objects.get(user=user_instance)
+    # cart_instance = Cart.objects.get(user=user_instance) # Get the cart for the user that issued the request
     # cart = CartSerializer(cart_instance)
     # items = CartItem.objects.filter(cart = cart_instance)
     items = cart_instance.cart_item.all() # get all items associated with that car, by using reverse relation
@@ -46,7 +48,7 @@ class CartItemViewSet(viewsets.ModelViewSet):
     owners = {} #keep track of what each owner balance would be after their items are sold
     sold_items = {} #keep track of items to record them in case of a successful transaction
 
-    if request.user.balance >= total_cost:
+    if user_instance.balance >= total_cost:
 
       for item in items: #each item is a CartItem instance, so it has the product and its amount but NOT its price
         product_instance = Product.objects.get(pk=item.product.id)
@@ -62,7 +64,7 @@ class CartItemViewSet(viewsets.ModelViewSet):
           price=product_instance.price,
           image=product_instance.image,
           quantity=item.quantity,
-          user = request.user
+          user = user_instance
         )
 
         #adding the items to the user's purchased items
@@ -74,17 +76,17 @@ class CartItemViewSet(viewsets.ModelViewSet):
           user = product_instance.seller
         )
 
-      serializer=RegisterSerializer(request.user)
+      serializer=RegisterSerializer(user_instance)
 
     
       for key in sold_items:
-        Record.objects.create(report=request.user.email + " has purchased "+ key+ " x"+ str(sold_items[key]))
+        Record.objects.create(report=user_instance.email + " has purchased "+ key+ " x"+ str(sold_items[key]))
         
 
-      return_dict = {'status':"Transaction Complete, " +request.user.email + "'s Balance was deducted by: "+str(total_cost)}
+      return_dict = {'status':"Transaction Complete, " +user_instance.email + "'s Balance was deducted by: "+str(total_cost)}
       Record.objects.create(report=return_dict['status'])
-      request.user.balance -= total_cost
-      request.user.save()
+      user_instance.balance -= total_cost
+      user_instance.save()
       print("balance was deducted by ", total_cost)
       for key in owners:
         owner = User.objects.get(email=key)

@@ -21,7 +21,8 @@ class Product(models.Model):
   available = models.BooleanField(default=False)
   rating = models.FloatField(default=0)
   price = models.IntegerField()
-  image = models.ImageField(null=True, blank=True ,default='empty.jpg')
+  image = models.ImageField(null=True, blank=True ,default='empty.jpg', upload_to='media')
+  # image = models.CharField(max_length=100000,default=None)
   amount = models.PositiveIntegerField(default=0)
 
   # Relationships

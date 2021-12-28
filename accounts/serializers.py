@@ -11,7 +11,7 @@ class RegisterSerializer(serializers.ModelSerializer):
   purchased_products = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
   class Meta:
     model = User
-    fields = ['username', 'email', 'password', 'balance', 'products', 'user_cart', 'purchased_products', 'sold_products']
+    fields = ['id' ,'username', 'email', 'password', 'balance', 'products', 'user_cart', 'purchased_products', 'sold_products']
     write_only_fields = ('password')
     read_only_fields = ('is_staff', 'is_superuser')
     # depth = 2

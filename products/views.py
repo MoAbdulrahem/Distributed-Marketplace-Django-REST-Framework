@@ -48,3 +48,16 @@ class ProductViewSet(viewsets.ModelViewSet):
       return Response(serializer.data)
     except:
       return Response(status.Http404)
+
+  @action(detail=True, methods=['post'])
+  def add_product_image(self, request, pk=0):
+    try:
+      product_instance = Product.objects.get(id=pk)
+      product_instance.image = request.data['image']
+      product_instance.save()
+      return Response({'status': 'updated'})
+    except:
+      return Response({'status': 'failed'})
+      
+
+

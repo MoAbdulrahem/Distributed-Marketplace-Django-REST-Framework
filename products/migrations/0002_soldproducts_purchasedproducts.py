@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=200)),
                 ('price', models.IntegerField()),
-                ('image', models.ImageField(blank=True, default='empty.jpg', null=True, upload_to='')),
+                ('image', models.ImageField(blank=True, default='empty.jpg', null=True, upload_to='media')),
                 ('quantity', models.PositiveIntegerField(default=0)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='purchased_products', to='accounts.user')),
             ],

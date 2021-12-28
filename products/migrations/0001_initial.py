@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('available', models.BooleanField(default=False)),
                 ('rating', models.FloatField(default=0)),
                 ('price', models.IntegerField()),
-                ('image', models.ImageField(blank=True, default='empty.jpg', null=True, upload_to='')),
+                ('image', models.ImageField(blank=True, default='empty.jpg', null=True, upload_to='media')),
                 ('amount', models.PositiveIntegerField(default=0)),
                 ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='categories', to='categories.category')),
                 ('seller', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='accounts.user')),
